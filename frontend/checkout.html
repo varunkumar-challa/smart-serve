@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        input[type="number"] {
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #4CAF50;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Checkout</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="checkout-cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </tbody>
+        </table>
+        <div class="total">
+            <p id="checkout-grand-total">Grand Total: $0.00</p>
+        </div>
+
+        <h3>Your Details</h3>
+        <p><strong>Name:</strong> <span id="user-name"></span></p>
+        <p><strong>Phone:</strong> <span id="user-phone"></span></p>
+
+        <h3>Enter Table Number</h3>
+        <form id="checkout-form">
+            <div class="form-group">
+                <label for="table-number">Table Number</label>
+                <input type="number" id="table-number" placeholder="Enter your table number" min="1" required>
+            </div>
+            <button type="submit" class="btn">Confirm Order</button>
+        </form>
+    </div>
+
+    <script>
+        // Load the cart and user data from localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const user = JSON.parse(localStorage.getItem('user')) || {}; // Assuming you stored user info after login
+        console.log(cart)
+        // Function to render the cart items in the table
+        function renderCheckout() {
+            const checkoutCartItemsContainer = document.getElementById('checkout-cart-items');
+            let grandTotal = 0;
+    
+            checkoutCartItemsContainer.innerHTML = '';
+    
+            cart.forEach(item => {
+                const itemPrice = item.price || 0;
+                const itemQuantity = item.quantity || 1;
+                const itemTotal = itemPrice * itemQuantity;
+                grandTotal += itemTotal;
+    
+                const itemPriceFormatted = itemPrice.toFixed(2);
+                const itemTotalFormatted = itemTotal.toFixed(2);
+    
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${itemQuantity}</td>
+                    <td>$${itemPriceFormatted}</td>
+                    <td>$${itemTotalFormatted}</td>
+                `;
+                checkoutCartItemsContainer.appendChild(row);
+            });
+    
+            document.getElementById('checkout-grand-total').innerText = `Grand Total: $${grandTotal.toFixed(2)}`;
+    
+            document.getElementById('user-name').textContent = user.name || "Guest";
+            document.getElementById('user-phone').textContent = user.phone || "Not available";
+        }
+    
+        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const tableNumber = document.getElementById('table-number').value;
+
+    // Check if the cart is empty
+    if (cart.length === 0) {
+        alert('Your cart is empty. Please add items to the cart before checking out.');
+        window.location.href = 'index.html'; // Redirect to home page
+        return;
+    }
+
+    // Validate the table number
+    if (!tableNumber || tableNumber < 1) {
+        alert('Please enter a valid table number');
+        return;
+    }
+
+    // Validate items data in cart
+    const invalidItems = cart.filter(item => !item.name || !item.price || !item.quantity);
+    if (invalidItems.length > 0) {
+        alert('One or more items are missing required information (name, price, or quantity). Please check your cart.');
+        return;
+    }
+
+    // Show loading spinner and disable the button
+    const submitButton = document.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.innerText = 'Processing...';
+
+    const orderData = {
+        items: cart.map(item => ({
+            item: item._id,  // Assuming _id is the Item ObjectId in the cart
+            quantity: item.quantity,
+        })),
+        tableNumber: tableNumber,
+        total: parseFloat(document.getElementById('checkout-grand-total').textContent.split(": $")[1]),
+    };
+
+    const token = localStorage.getItem('token');
+    
+    // Send the order data to the backend
+    fetch('http://localhost:4000/order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Order confirmed! Your order has been placed successfully.');
+            localStorage.removeItem('cart'); // Clear the cart
+            window.location.href = 'thank-you.html'; // Redirect to "Thank You" page
+        } else {
+            alert('There was an error processing your order. Please try again.');
+        }
+    })
+    .catch(error => {
+        alert('There was an error processing your order. Please try again.');
+        console.error('Error:', error);
+    })
+    .finally(() => {
+        // Re-enable the submit button after completion
+        submitButton.disabled = false;
+        submitButton.innerText = 'Confirm Order';
+    });
+});
+
+
+    
+        renderCheckout();
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Orders</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        /* Styling for cooked orders */
+        .cooked-order {
+            background-color: #e0f7fa; /* Light cyan background for cooked orders */
+            text-decoration: line-through; /* Strike-through text to indicate cooked */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="logo">Restaurant Logo</a>
+        </div>
+        <div class="navbar-right">
+            <button class="nav-button" id="addAdminBtn">Add Admin</button>
+            <button class="nav-button" id="addDishBtn">Add Dish</button>
+        </div>
+    </nav>
+
+    <!-- Orders Section -->
+    <div class="container">
+        <h1>All Orders</h1>
+        <table id="orders-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Table Number</th>
+                    <th>Status</th>
+                    <th>Items</th> <!-- Added a new column for items -->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="orders-body">
+                <!-- Orders will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('adminToken');
+            console.log(token);
+            try {
+                // Fetch all orders from the backend
+                const response = await fetch('http://localhost:4000/orders', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Add the token to the Authorization header
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    const orders = data.data;
+
+                    const ordersBody = document.getElementById('orders-body');
+                    ordersBody.innerHTML = ''; // Clear any existing content
+
+                    orders.forEach(order => {
+                        // Only display orders that are NOT "Delivered"
+                        if (order.status === 'Delivered') return;
+
+                        // Create a table row for each order
+                        const row = document.createElement('tr');
+
+                        // Build a string for the items
+                        let itemsHtml = '';
+                        order.orderItems.forEach(orderItem => {
+                            itemsHtml += `${orderItem.item.name} (x${orderItem.quantity}) <br>`;
+                        });
+
+                        // Mark the row as "Cooked" if the order status is "Cooked"
+                        const isCooked = order.status === 'Cooked';
+
+                        row.innerHTML = `
+                            <td>${order._id}</td>
+                            <td>${order.customer.name}</td>
+                            <td>${order.tableNumber}</td>
+                            <td id="status-${order._id}" class="${isCooked ? 'cooked-order' : ''}">${order.status || 'Pending'}</td>
+                            <td id="items-${order._id}">${itemsHtml}</td> <!-- Render items here -->
+                            <td>
+                                <button class="action-btn" onclick="markCooked('${order._id}')">Mark as Cooked</button>
+                                <button class="action-btn" onclick="markDelivered('${order._id}')">Mark as Delivered</button>
+                            </td>
+                        `;
+                        
+                        // If the order is cooked, apply the "cooked-order" class to the entire row
+                        if (isCooked) {
+                            row.classList.add('cooked-order'); // Apply to the entire row
+                        }
+
+                        ordersBody.appendChild(row);
+                    });
+                } else {
+                    alert('Failed to load orders.');
+                }
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+                alert('An error occurred while fetching orders.');
+            }
+        });
+
+        // Function to mark the order as Cooked
+        async function markCooked(orderId) {
+            try {
+                const response = await fetch(`http://localhost:4000/orders/${orderId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                    },
+                    body: JSON.stringify({ status: 'Cooked' })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    document.getElementById(`status-${orderId}`).textContent = 'Cooked';
+                    const row = document.getElementById(`status-${orderId}`).closest('tr'); // Get the parent row
+                    row.classList.add('cooked-order'); // Add the cooked-order class to the entire row
+                    alert('Order marked as Cooked');
+                } else {
+                    alert('Failed to update order status');
+                }
+            } catch (error) {
+                console.error('Error updating order:', error);
+                alert('An error occurred while updating order status.');
+            }
+        }
+
+        // Function to mark the order as Delivered
+        async function markDelivered(orderId) {
+            try {
+                const response = await fetch(`http://localhost:4000/orders/${orderId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                    },
+                    body: JSON.stringify({ status: 'Delivered' })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    document.getElementById(`status-${orderId}`).textContent = 'Delivered';
+                    alert('Order marked as Delivered');
+                    window.location.reload();
+                } else {
+                    alert('Failed to update order status');
+                }
+            } catch (error) {
+                console.error('Error updating order:', error);
+                alert('An error occurred while updating order status.');
+            }
+        }
+    </script>
+
+</body>
+</html>

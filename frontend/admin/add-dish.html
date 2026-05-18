@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Dish</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="Restaurant Logo">
+        </div>
+    </header>
+
+    <main>
+        <h1>Add New Dish</h1>
+        <form id="dish-form">
+            <input type="text" id="dish-name" placeholder="Dish Name" required>
+            <textarea id="dish-description" placeholder="Description" required></textarea>
+            <div style="position: relative; max-width: 300px; width: 100%; margin: 0.5rem;">
+                <span style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: #555;">₹</span>
+                <input type="number" id="dish-price" placeholder="Price" required style="padding-left: 2rem;">
+            </div>
+            <input type="file" id="dish-image" accept="image/*">
+            <button type="submit">Add Dish</button>
+        </form>
+        <p>Cancel? <a href="admin.html">Back to Dashboard</a></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Our Restaurant. All rights reserved.</p>
+    </footer>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

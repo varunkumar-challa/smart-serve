@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .quantity {
+            width: 60px;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #4CAF50;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </tbody>
+        </table>
+        <div class="total">
+            <p id="grand-total">Grand Total: $0.00</p>
+        </div>
+        <a href="#" class="btn" id="proceed-to-checkout">Proceed to Checkout</a>
+    </div>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Function to render the cart items in the table
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            let grandTotal = 0;
+
+            // Clear previous cart items
+            cartItemsContainer.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemPrice = item.price || 0;
+                const itemQuantity = item.quantity || 1;
+                const itemTotal = itemPrice * itemQuantity;
+                grandTotal += itemTotal;
+
+                const itemPriceFormatted = itemPrice.toFixed(2);
+                const itemTotalFormatted = itemTotal.toFixed(2);
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td><input type="number" class="quantity" value="${itemQuantity}" min="1" data-id="${item._id}"></td>
+                    <td>$${itemPriceFormatted}</td>
+                    <td>$${itemTotalFormatted}</td>
+                    <td><button class="delete-btn" data-id="${item._id}">Delete</button></td>
+                `;
+                cartItemsContainer.appendChild(row);
+            });
+
+            document.getElementById('grand-total').innerText = `Grand Total: $${grandTotal.toFixed(2)}`;
+
+            // Add event listeners to the quantity input fields
+            document.querySelectorAll('.quantity').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const itemId = e.target.getAttribute('data-id');
+                    const newQuantity = parseInt(e.target.value, 10);
+                    updateCartItemQuantity(itemId, newQuantity);
+                    renderCart();
+                });
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = e.target.getAttribute('data-id');
+                    deleteCartItem(itemId);
+                    renderCart();
+                });
+            });
+        }
+
+        function updateCartItemQuantity(itemId, newQuantity) {
+            const item = cart.find(cartItem => cartItem._id === itemId);
+            if (item && newQuantity > 0) {
+                item.quantity = newQuantity;
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+        }
+
+        function deleteCartItem(itemId) {
+            const updatedCart = cart.filter(item => item._id !== itemId);
+            localStorage.setItem('cart', JSON.stringify(updatedCart));
+            cart.length = 0;
+            updatedCart.forEach(item => cart.push(item));
+        }
+
+        // Add event listener to the "Proceed to Checkout" button
+        document.getElementById('proceed-to-checkout').addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            // Save the cart data to localStorage (if not already)
+            localStorage.setItem('cart', JSON.stringify(cart));
+            window.location.href = 'checkout.html';  // Redirect to checkout page
+        });
+
+        renderCart();
+    </script>
+</body>
+</html>

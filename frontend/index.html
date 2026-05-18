@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant - Home</title>
+    <!-- Bootstrap CDN for responsiveness and base styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- PhotoSphere CSS for 360-degree view -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photosphere-viewer@4.5.0/dist/photosphere-viewer.css">
+
+    <style>
+        /* Scrolling Message */
+        .scroll-message {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .scroll-message span {
+            display: inline-block;
+            white-space: nowrap;
+            color: blue;
+            animation: scrollText 25s linear infinite;
+        }
+
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+          /* NAVIGATION BAR STYLES */
+    header {
+        background-color: #343a40;
+        padding: 15px 0;
+    }
+
+    .logo img {
+        width: 80px; /* Increased from 60px */
+        height: 80px; /* Increased from 60px */
+        border-radius: 50%;
+        border: 3px solid #f39c12; /* Added yellow border for highlight */
+    }
+
+    nav a {
+        text-decoration: none;
+        font-size: 1.2rem; /* Increased font size */
+        font-weight: bold;
+        padding: 10px 20px;
+        margin-left: 15px;
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    nav a:first-child {
+        background-color: #f39c12; /* Green - Sign Up */
+        color: white;
+    }
+
+    nav a:nth-child(2) {
+        background-color: #f39c12; /* Blue - Login */
+        color: white;
+    }
+
+    nav a:nth-child(3) {
+        background-color: #f39c12; /* Yellow - Cart */
+        color: white;
+    }
+
+    nav a:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        opacity: 0.9;
+    }
+        /* Custom Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #343a40;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: 500;
+        }
+
+        header a:hover {
+            color: #f1c40f;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .scroll-message {
+            width: 100%;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        
+        .logo img {
+            border-radius: 50%;
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body h5 {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .card-body p {
+            color: #777;
+        }
+
+        .card-footer {
+            background-color: transparent;
+            border-top: 1px solid #f1f1f1;
+        }
+
+        .menu-item-price {
+            font-weight: bold;
+            color: #f39c12;
+        }
+
+       /* Increased Size of CMRIT Image */
+/* 🌟 CMRIT Image - Bigger & More Visible */
+.cmrit-img {
+    width: 95%;
+    max-width: 1200px;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+    border-radius: 15px;
+    border: 6px solid #f39c12; /* Yellow border */
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3); /* Depth effect */
+}
+
+
+          /* ✅ FIX: Reduced map height */
+    #panorama-container {
+        width: 100%;
+        height: 400px; /* Decreased from 500px */
+        margin-bottom: 0px;
+    }
+
+    iframe {
+        display: block;
+        width: 100%;
+        height: 350px; /* Decreased from 450px */
+        border: none;
+        margin-bottom: 0px;
+    }
+    </style>
+</head>
+
+<body>
+      <!-- Scrolling Message -->
+    <div class="scroll-message">
+        <span><u> Welcome to CMRIT canteen & Restaurant , All food items are available here .  Kandlakoya, Medchal, Hyderabad 501401 </u></span>
+    </div>
+
+    <!-- Header Section -->
+    <!-- Updated Header Section -->
+<header class="py-4">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="Restaurant Logo">
+        </div>
+        <nav>
+            <a href="signup.html">Sign Up</a>
+            <a href="login.html">Login</a>
+            <a href="cart.html">Cart</a>
+        </nav>
+    </div>
+</header>
+    <!-- Main Section -->
+    <main class="container py-5">
+        <h1 class="text-center mb-4" style="font-size: 3rem; color: #333;">Welcome to CMRIT Canteen </h1>
+        
+    <!-- CMRIT College Image (Center Aligned) -->
+    <div class="text-center">
+        <img src="assets/images/image.png" alt="CMRIT College Hyderabad" class="cmrit-img">
+    </div>
+
+    <!-- About CMRIT Section -->
+    <!-- About CMRIT Section -->
+<section class="container mt-5 p-4 rounded" style="background: rgba(255, 255, 255, 0.9); border-radius: 15px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);">
+    <h2 class="text-center" style="color: #ff5733; font-weight: 700;">About CMRIT</h2>
+    <p class="text-center" style="color: #1e1818; font-size: 1.2rem; line-height: 1.8;">
+        🌟CMR Institute of Technology is one of the best engineering Colleges for aspiring engineering students. It is one of the three colleges established by MGR Educational Society. CMR Institute of Technology was established in 2005 in 10 Acres and built up area of 31132.72 Sq.M. with a single – minded aim to provide a perfect platform to students in the field of Engineering, Technology and Management for their academic and overall personality development. The College has a rich tradition of soaring high with academic excellence & overall personal growth of students.
+    </p>
+</section>
+
+<br>
+<br>
+
+        <h2 class="text-center mb-4" style="color: #fb942c;"> <strong> Our Menu </strong></h2>
+        <!-- Menu Item Container -->
+        <div id="items-container" class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+            <!-- Items will be dynamically injected here -->
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="assets/images/dish1.jpg" class="card-img-top" alt="Dish 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Grilled Chicken</h5>
+                        <p class="card-text">Tender grilled chicken served with a side of mashed potatoes and vegetables.</p>
+                    </div>
+                    <div class="card-footer text-end">
+                        <span class="menu-item-price">$12.99</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="assets/images/dish2.jpg" class="card-img-top" alt="Dish 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Veg Burger</h5>
+                        <p class="card-text">A wholesome veggie patty with fresh lettuce, tomatoes, and our special sauce.</p>
+                    </div>
+                    <div class="card-footer text-end">
+                        <span class="menu-item-price">$8.99</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="assets/images/dish3.jpg" class="card-img-top" alt="Dish 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Pasta Alfredo</h5>
+                        <p class="card-text">Creamy alfredo sauce pasta with a touch of parmesan cheese.</p>
+                    </div>
+                    <div class="card-footer text-end">
+                        <span class="menu-item-price">$10.50</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <!-- 360 Degree Canteen View -->
+                <h2 class="text-center mt-5" style="color: #333;">Take a Virtual Tour of Our Canteen</h2>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3849.3910283908513!2d78.48456052399992!3d17.60369770237011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb85faf731e9ad%3A0x18d48b250732da44!2sCMRIT%20Canteen!5e0!3m2!1sen!2sin!4v1741686917350!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <div id="panorama-container"></div>
+    </main>
+
+   <!-- Footer Section -->
+<footer class="py-5 text-white bg-dark">
+    <div class="container">
+        <!-- First Row: Contact Information and Social Links -->
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Contact Information</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Phone:</strong> +91 9346384141</li>
+                    <li><strong>Phone:</strong> +91 8008557612</li>
+                    <li><strong>Email:</strong> <a href="mailto:principalcmrit@gmail.com" class="text-white">canteencmrit@gmail.com</a></li>
+                    <li><strong>Address:</strong> Kandlakoya, Medchal, Hyderabad 501401</li>
+                </ul>
+            </div>
+            
+            <!-- Second Row: Social Media Links -->
+            <div class="col-md-4">
+                <h5>Follow Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Facebook</a></li>
+                    <li><a href="#" class="text-white">LinkedIn</a></li>
+                    <li><a href="#" class="text-white">Instagram</a></li>
+                    <li><a href="#" class="text-white">X</a></li>
+                </ul>
+            </div>
+
+            <!-- Third Row: Important Links -->
+            <div class="col-md-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Latest updates</a></li>
+                    <li><a href="#" class="text-white">Information</a></li>
+                    <li><a href="#" class="text-white">menu</a></li>
+                    <li><a href="#" class="text-white">reviews</a></li>
+                    <li><a href="#" class="text-white">rating</a></li>
+                    <li><a href="#" class="text-white">E-Resources</a></li>
+                    <li><a href="#" class="text-white">Policy</a></li>
+                    <li><a href="#" class="text-white">Help</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Second Row: Login and Server Links -->
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <h5>Logins</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Bees ERP Staff Login</a></li>
+                    <li><a href="#" class="text-white">Bees ERP admin Login</a></li>
+                    <li><a href="#" class="text-white">Bees ERP waiters Login</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h5>Other Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Contact Us</a></li>
+                    <li><a href="#" class="text-white">Transport</a></li>
+                    <li><a href="#" class="text-white">Blog</a></li>
+                    <li><a href="#" class="text-white">FAQ</a></li>
+                    <li><a href="#" class="text-white">Terms & Conditions</a></li>
+                    <li><a href="#" class="text-white">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright and Design Credits -->
+        <div class="row mt-5">
+            <div class="col text-center">
+                <p>&copy; 2025 CMRIT | Designed by <a href="#" target="_blank" class="text-white">Risers</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- PhotoSphere JS for 360-degree view -->
+    <script src="https://cdn.jsdelivr.net/npm/photosphere-viewer@4.5.0/dist/photosphere-viewer.js"></script>
+
+    <script>
+        // Initialize the 360-degree view of the canteen
+        var viewer = new PhotoSphereViewer({
+            panorama: 'assets/images/canteen-360.jpg', // Path to your 360-degree image of the canteen
+            container: document.querySelector('#panorama-container'),
+            caption: 'CMRIT Canteen - 360 View',
+            navbar: 'zoom fullscreen download'
+        });
+    </script>
+
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

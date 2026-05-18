@@ -1,0 +1,311 @@
+/* General Styles */
+body {
+    background-color: white;
+  }
+  
+  /* Navbar Styles */
+  .navbar-custom {
+    background-color: white;
+    color: black;
+    border: 2px solid white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-custom .navbar-nav .nav-link {
+    color: black;
+  }
+  
+  .navbar bg-body-tertiary {
+    background-color: white;
+  }
+  
+  .navbar-custom .navbar-brand {
+    color: black;
+  }
+  
+  .navbar-custom .navbar-nav .nav-link:hover {
+    color: #555;
+  }
+  
+  .navbar-custom .form-control {
+    width: 500px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+  }
+  
+  .navbar-custom .form-control::placeholder {
+    color: #777;
+  }
+  
+  .navbar-custom .form-control:focus {
+    box-shadow: none;
+    border-color: black;
+  }
+  
+  .navbar-custom .navbar-collapse {
+    justify-content: space-between;
+  }
+  
+  .navbar-custom .nav-end {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-custom .nav-end .nav-link {
+    margin-left: 15px;
+  }
+  .navigation-bar
+  {
+  padding:10px 0 10px 0;
+  margin-top:5px;
+  }
+  /* Hover Effects for Navbar */
+  .nav-item a:hover {
+    color: #2548f7;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item .dropdown-toggle:hover {
+    color: #2548f7;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-item .dropdown-menu a:hover {
+    background-color: #f1f1f1;
+    color: #007bff;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Category Cards Hover Effects */
+  .card:hover .card-img {
+    transform: scale(1.08);
+    transition: transform 0.3s ease;
+  }
+  
+  .card-img {
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  
+  /* Dropdown Menu Styles */
+  .dropdown-menu {
+    min-width: 200px;
+    padding: 1rem;
+    background-color: white;
+    color: black;
+  }
+  
+  .dropdown-item {
+    color: black;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .dropdown-toggle {
+    color: black;
+  }
+  
+  .dropdown-toggle:hover {
+    color: #555;
+  }
+  
+  /* Layout and Styling for Containers */
+  .container {
+    margin-top: 5px;
+    align-content: center;
+    background-color: white;
+    color: black;
+    border: 1px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container-Grocery {
+    padding: 0 180px 0 180px;
+    margin-top: 5px;
+    align-content: center;
+    background-color: white;
+    color: black;
+  }
+  
+  /* Carousel Styles */
+  .carousel-inner img {
+    height: 500px;
+  }
+  
+  .carousel {
+    position: relative;
+    width: 80%;
+    margin: 40px auto;
+    overflow: hidden;
+  }
+  
+  .carousel-inner {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.5s ease;
+  }
+  
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Button Styles */
+  #add-btn-atc {
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 20px;
+    border: 1px solid transparent;
+    color: black;
+    background-color: rgb(247, 247, 12);
+  }
+  
+  #add-btn-bn {
+    border-radius: 30px;
+    font-size: 12px;
+    border: 1px solid transparent;
+    color: black;
+    background-color: rgb(240, 139, 39);
+  }
+  
+  #image-container {
+    display: block;
+    width: 20px;
+    height: auto;
+  }
+  
+  /* Overlay Text */
+  .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 18px;
+    padding-left: 845px;
+    padding-bottom: 10px;
+  }
+  
+  /* Card Styles */
+  .card {
+    background-color: rgb(237, 231, 231, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 20px;
+    text-align: center;
+    float: left;
+    width: 15%;
+    height: 10%;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .card-img {
+    width: 100%;
+    height: 120px;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    text-align: left;
+  }
+  /* Section Title */
+  .section-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* See All Link */
+  .see-all-container {
+    text-align: center;
+    padding-bottom: 30px;
+  }
+  
+  .see-all-link {
+    color: red;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  
+  .see-all-link:hover {
+    text-decoration: none;
+  }
+  
+  /* No Underline Link */
+  .no-underline {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .no-underline:hover {
+    text-decoration: none;
+  }
+  .nav-link {
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #007bff;
+  }
+  .custom-light-green
+  {
+    background-color:#90EE90;
+  
+    border-color: #80E080
+  }
+  .custom-light-green:hover
+  {
+    background-color:  #80E080;
+    border-color: #66C466
+  }
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+  }
+  
+  .dropdown-menu {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+  }
+  
+  .dropdown-item {
+    transition: background-color 0.3s ease;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  b {
+    font-weight: bold;
+  }
+  
+  .bi-fire {
+    margin-right: 5px;
+  }
